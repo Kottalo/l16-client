@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { useAppStore } from '@/store/app'
 
 const props = defineProps({

@@ -11,9 +11,9 @@
     </v-toolbar>
 
     <v-card-text>
-      <v-container class="pa-2">
+      <v-container>
         <v-row>
-          <v-col cols="2" class="">
+          <v-col cols="2" xl="2" md="2" sm="4" xs="4" class="">
             <v-container class="h-100">
               <v-row class="pa-0" style="height: 45%;">
                 <v-col class="pa-0">
@@ -23,8 +23,8 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h3 text-center">
-                        {{ data?.records[0].view_per_min }}
+                      <div class="text-h4 text-center">
+                        {{ data?.records[0]?.view_per_min }}
                       </div>
                     </v-card-text>
                   </v-card>
@@ -39,8 +39,8 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h3 text-center">
-                        {{ data?.records[0].follower_per_min }}
+                      <div class="text-h4 text-center">
+                        {{ data?.records[0]?.follower_per_min }}
                       </div>
                     </v-card-text>
                   </v-card>
@@ -48,12 +48,14 @@
               </v-row>
             </v-container>
           </v-col>
-          <v-col>
-            <v-data-table :headers="headers" :items="data?.records" :itemsPerPage="itemsPerPage"
+
+          <v-col cols="8" xl="2" md="8" sm="4" xs="4">
+            <v-data-table :headers="headers" :items="data?.records" v-model:itemsPerPage="itemsPerPage"
               :itemsPerPageOptions="itemsPerPageOptions">
             </v-data-table>
           </v-col>
-          <v-col cols="2" class="">
+
+          <v-col cols="2" xl="2" md="2" sm="4" xs="4" class="">
             <v-container class="h-100">
               <v-row class="pa-0" style="height: 45%;">
                 <v-col class="pa-0">
@@ -63,7 +65,7 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h3 text-center">
+                      <div class="text-h4 text-center">
                         {{ (data?.records[0].view / data?.records[0].favorite / 10).toFixed(2) }}
                       </div>
                     </v-card-text>
@@ -79,7 +81,7 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h3 text-center">
+                      <div class="text-h4 text-center">
                         {{ (data?.records[0].view / data?.records[0].share / 100).toFixed(2) }}
                       </div>
                     </v-card-text>
@@ -96,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import DeleteVideoDialog from './DeleteVideoDialog.vue';
 
 defineProps({
@@ -105,24 +107,24 @@ defineProps({
 
 const itemsPerPage = ref(5)
 
-const headers = [
+const headers = ref<any>([
   { title: '时间', key: 'formattedCreatedAt', align: 'start' },
-  { title: '播放', key: 'view', align: 'end' },
+  { title: '播放', key:'view', align: 'end' },
   // { title: '播放/分', key: 'view_per_min', align: 'end' },
-  { title: '点赞', key: 'like', align: 'end' },
+  { title: '点赞', key:'like', align: 'end' },
   // { title: '点赞/分', key: 'like_per_min', align: 'end' },
-  { title: '硬币', key: 'coin', align: 'end' },
+  { title: '硬币', key:'coin', align: 'end' },
   // { title: '硬币/分', key: 'coin_per_min', align: 'end' },
-  { title: '收藏', key: 'favorite', align: 'end' },
+  { title: '收藏', key:'favorite', align: 'end' },
   // { title: '收藏/分', key: 'favorite_per_min', align: 'end' },
-  { title: '分享', key: 'share', align: 'end' },
+  { title: '分享', key:'share', align: 'end' },
   // { title: '分享/分', key: 'share_per_min', align: 'end' },
-  { title: '粉丝', key: 'follower', align: 'end' },
+  { title: '粉丝', key:'follower', align: 'end' },
   // { title: '粉丝/分', key: 'follower_per_min', align: 'end' },
-  { title: '评论', key: 'reply', align: 'end' },
+  { title: '评论', key:'reply', align: 'end' },
   // { title: '评论/分', key: 'reply_per_min', align: 'end' },
   // { title: '弹幕', key: 'danmaku', align: 'end' },
-]
+])
 
 const itemsPerPageOptions = ref<any[]>([])
 
@@ -132,4 +134,6 @@ for (let i = 5; i <= 20; i += 5) {
     value: i,
   })
 }
+
+const paneSize = ref(0)
 </script>
