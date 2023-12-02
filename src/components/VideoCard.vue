@@ -1,7 +1,7 @@
 <template>
   <v-card color="grey-lighten-4" flat>
     <v-toolbar class="pl-3" color="primary" :dark="false">
-      <v-img :max-width="80" :src="data?.pic"></v-img>
+      <v-img :max-width="80" :src="imageUrl"></v-img>
       <v-toolbar-title>{{ data?.title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
@@ -23,7 +23,7 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h4 text-center">
+                      <div v-if="data?.records[0]" class="text-h4 text-center">
                         {{ data?.records[0]?.view_per_min }}
                       </div>
                     </v-card-text>
@@ -39,7 +39,7 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h4 text-center">
+                      <div v-if="data?.records[0]" class="text-h4 text-center">
                         {{ data?.records[0]?.follower_per_min }}
                       </div>
                     </v-card-text>
@@ -65,8 +65,8 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h4 text-center">
-                        {{ (data?.records[0].view / data?.records[0].favorite / 10).toFixed(2) }}
+                      <div v-if="data?.records[0]" class="text-h4 text-center">
+                        {{ (data?.records[0]?.view / data?.records[0]?.favorite / 10).toFixed(2) }}
                       </div>
                     </v-card-text>
                   </v-card>
@@ -81,8 +81,8 @@
                     </v-toolbar>
 
                     <v-card-text>
-                      <div class="text-h4 text-center">
-                        {{ (data?.records[0].view / data?.records[0].share / 100).toFixed(2) }}
+                      <div v-if="data?.records[0]" class="text-h4 text-center">
+                        {{ (data?.records[0]?.view / data?.records[0]?.share / 100).toFixed(2) }}
                       </div>
                     </v-card-text>
                   </v-card>
@@ -100,8 +100,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import DeleteVideoDialog from './DeleteVideoDialog.vue';
+import { supabase } from '@/services/supabase';
+import { onMounted } from 'vue';
 
-defineProps({
+const props = defineProps({
   data: Object,
 })
 
@@ -135,5 +137,15 @@ for (let i = 5; i <= 20; i += 5) {
   })
 }
 
-const paneSize = ref(0)
+const imageUrl = ref('')
+
+onMounted(async () => {
+  await getVideoPicUrl()
+})
+
+async function getVideoPicUrl() {
+  const picUrl = await supabase.storage.from('main-bucket').getPublicUrl(`videos/${props.data?.bvid}.jpg`)
+
+  imageUrl.value = picUrl.data?.publicUrl
+}
 </script>
