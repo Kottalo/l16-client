@@ -61,12 +61,12 @@
                 <v-col class="pa-0">
                   <v-card height="120">
                     <v-toolbar class="pl-3" color="primary" :dark="false" density="compact">
-                      <v-toolbar-title>播放/收藏</v-toolbar-title>
+                      <v-toolbar-title>收藏/播放</v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text>
                       <div v-if="data?.records[0]" class="text-h4 text-center">
-                        {{ (data?.records[0]?.view / data?.records[0]?.favorite / 10).toFixed(2) }}
+                        {{ (data?.records[0]?.favorite / data?.records[0]?.view * 10).toFixed(2) }}
                       </div>
                     </v-card-text>
                   </v-card>
@@ -77,12 +77,12 @@
                 <v-col class="pa-0">
                   <v-card height="120">
                     <v-toolbar class="pl-3" color="primary" :dark="false" density="compact">
-                      <v-toolbar-title>播放/分享</v-toolbar-title>
+                      <v-toolbar-title>分享/播放</v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text>
                       <div v-if="data?.records[0]" class="text-h4 text-center">
-                        {{ (data?.records[0]?.view / data?.records[0]?.share / 100).toFixed(2) }}
+                        {{ (data?.records[0]?.share / data?.records[0]?.view * 10).toFixed(2) }}
                       </div>
                     </v-card-text>
                   </v-card>
