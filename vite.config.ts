@@ -2,6 +2,7 @@
 import vue from '@vitejs/plugin-vue'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
+import Copy from 'vite-plugin-copy'
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -28,6 +29,11 @@ export default defineConfig({
         }],
       },
     }),
+    Copy({
+      targets: [
+        { src: 'public/_redirects', dest: 'dist' }
+      ]
+    })
   ],
   define: { 'process.env': {} },
   resolve: {
