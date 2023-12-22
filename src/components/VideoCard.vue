@@ -49,7 +49,7 @@
             </v-container>
           </v-col>
 
-          <v-col cols="8" xl="2" md="8" sm="4" xs="4">
+          <v-col cols="8" xl="8" md="8" sm="4" xs="4">
             <v-data-table :headers="headers" :items="data?.records" v-model:itemsPerPage="itemsPerPage"
               :itemsPerPageOptions="itemsPerPageOptions">
             </v-data-table>
