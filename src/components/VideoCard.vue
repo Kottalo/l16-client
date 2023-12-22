@@ -146,6 +146,8 @@ onMounted(async () => {
 async function getVideoPicUrl() {
   const picUrl = await supabase.storage.from('main-bucket').getPublicUrl(`videos/${props.data?.bvid}.jpg`)
 
+  console.log(props.data?.bvid)
+
   imageUrl.value = picUrl.data?.publicUrl
 }
 </script>

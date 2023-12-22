@@ -38,7 +38,11 @@ store.socket.on('connect', () => {
 })
 
 store.socket.on('loadVideos', (_videos: any[]) => {
-  videos.value = _videos
+  videos.value = []
+
+  setTimeout(() => {
+    videos.value = _videos
+  }, 5)
 })
 
 async function logout() {
